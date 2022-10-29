@@ -16,7 +16,7 @@ about = {}
 with open(os.path.join(home, "sledge", "__version__.py")) as f:
 	exec(f.read(), about)
 	
-if sys.argv[-1] == "publish"
+if sys.argv[-1] == "publish":
 	os.system("python setup.py sdist bdist_wheel upload")
 	sys.exit()
 	

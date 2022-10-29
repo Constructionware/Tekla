@@ -1,0 +1,1 @@
+import{_ as e,c as t,o}from"./index.d0819ba4.js";const c={},n={class:"text-3lg font-bold"};function s(r,a){return o(),t("p",n,"About CentryPlan Building Services.")}const l=e(c,[["render",s]]);export{l as default};
