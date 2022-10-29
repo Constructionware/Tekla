@@ -1,0 +1,22 @@
+{
+  "name": "static",
+  "version": "1.0.0",
+  "description": "centryplan static files service",
+  "main": "index.js",
+  "scripts": {
+    "buildcss": "npx tailwindcss -i ./css/tw.css -o ./css/main.css --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "centryplan",
+  "license": "ISC",
+  "devDependencies": {
+    "tailwindcss": "^3.1.8"
+  },
+  "dependencies": {
+    "@braid/vue-formulate": "^2.5.3",
+    "axios": "^0.27.2",
+    "daisyui": "^2.24.0",
+    "vue": "^3.2.37",
+    "vuedraggable": "^2.24.3"
+  }
+}

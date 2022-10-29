@@ -1,0 +1,199 @@
+{% extends "base-1t.html" %}
+{% block title %}Project {{data.get('_id')}}{% endblock %}
+{% block head %}
+    {{ super() }}
+    
+{% endblock %}
+{% block nav %} <div class="top-nav mx-2">
+    <button class="bg-pink-200 text-pink-600 px-3 py-2 rounded-md">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+      <span class="btm-nav-label"><a href="/">Home</a></span>
+    </button>
+    <button class="active bg-neutral text-neutral-content px-3 py-2 rounded-md">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        <span class="btm-nav-label"><a href="/project">Projects</a></span>
+      </button>
+    <button class="bg-teal-200 text-teal-600 px-3 py-2 rounded-md">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+        <span class="btm-nav-label"><a href="/worker">Employees</a></span>
+      </button>
+    <button class="bg-teal-200 text-teal-600 px-3 py-2 rounded-md">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+      <span class="btm-nav-label"><a href="/stats">Statics</a></span>
+    </button>
+  </div>
+  {% endblock %}
+{% block content %}
+<div id="papp">
+        
+        {% if data.get('state').get('active') %}
+        <div class="flex flex-row h-12 bg-green-300 text-sm mx-5 my-5 rounded-md">
+       
+          <span class="mx-5">Active Project</span>
+          <span>Started <% new Date({{data.get('event').get('started')}}).toDateString() %></span>
+        
+      </div>
+        {% elif data.get('state').get('completed') %}
+        <div class="flex flex-row h-12 bg-blue-300 text-sm mx-5 my-5 rounded-md">
+       
+          <span class="mx-5">Completed Project</span>
+          <span>Completion Date {{data.get('event').get('completed')}}</span>
+        
+      </div>
+
+        {% elif data.get('state').get('paused') %}
+        <div class="flex flex-row h-12 bg-gray-300 text-sm mx-5 my-5 rounded-md">
+       
+          <span class="mx-5">Paused Project</span>
+          <span>Paused on {{data.get('event').get('paused')[-1]}}</span>
+          <span class="mx-5">Restart</span>
+        
+      </div>
+
+        {% elif data.get('state').get('terminated') %}
+        <div class="flex flex-row h-12 bg-red-300 text-sm mx-5 my-5 rounded-md">
+       
+          <span class="mx-5">Terminated Project</span>
+          <span>Termination Date {{data.get('event').get('terminated')}}</span>
+        
+      </div>
+
+        {% endif %}
+
+    <p class="text-blue-600 text-3xl text-center font-bold mx-5 spacing-2">
+      <span class="text-blue-600 text-xl text-center ">CentryPlan Project /{{data.get('_id')}}.</span><span class="mx-5">{{data.get('name')}}</span>
+      
+    </p>
+    <div>
+     
+    </div>
+    
+    <div class="flex flex-row">
+
+      <div class="flex flex-col w-1/4 ml-5">
+        <p class="flex flex-row bg-gray-400 py-2 px-3 relative">
+          <span class="mx-5">Account</span>
+          <span class=""> <projectransaction id="{{data.get('_id')}}"></projectransaction></span>
+          <a href="#" class="mx-5 text-xs">get statement</a>
+        </p>
+        <div class="flex flex-row">
+          <span class="text-xs font-bold mx-5">Ballance</span>{{data.get('account').get('ballance')}} 
+          <span class="mx-5 py-1"> Updated</span>
+          <span class="mx-5"><% new Date({{data.get('account').get('updated')}}).toDateString() %></span> 
+        </div>
+       
+        
+        <table>
+          <caption>Deposits</caption>
+          <thead>
+            <tr>
+              <th>Refference</th>
+              <th>Date</th>
+              <th>Amount</th>
+              <th>Payee</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in data.get('account').get('transactions').get('deposit') %}
+            <tr>
+              <td>{{item.get('ref')}}</td>
+              <td><% new Date({{item.get('date')}}).toDateString() %></td>
+              <td>{{item.get('amount')}}</td>
+              <td>{{item.get('payee')}}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+          </tbody>
+        </table>
+       
+      </div>
+
+      <div class="flex flex-col w-1/4 mx-5">
+        <p class="bg-gray-400 py-2 px-3 flex flex-row">Workers 
+          
+          <span class="mx-5"><projectworker project="{{data.get('_id')}}"></projectworker></span>
+          <a href="#" class="mx-5 text-xs">get report</a>
+        </p>
+        <ul id="workerslist" class="h-96 overflow-y-auto">
+          {% for item in data.get('workers') %}
+          <li class="my-1"><a href="/worker/{{ item.get('id') }}" target="blank">
+            <span class="mx-5">{{ item.get('id') }}</span>
+            <span class="text-xs text-gray-500 mx-5">joined <% new Date({{ item.get('added') }}).toDateString() %></span></a></li>
+        {% endfor %}
+        </ul>
+        
+
+      </div>
+      <div class="flex flex-col w-1/4">
+        <p class="flex flex-row bg-gray-400 py-2 px-3">Tasks
+          <span class="mx-5"> <projectask project="{{data.get('_id')}}"></projectask></span>
+          <a href="#" class="mx-5 text-xs">get report</a>
+        </p>
+        <table>
+          <caption>Project Tasks</caption>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              
+              <th>State</th>
+             
+            </tr>
+
+          </thead>
+          <tbody>
+            {% for item in data.get('tasks') %}
+            <tr>
+              <td><a href="/gettask/{{item.get('_id')}}" target="_blank">{{item.get('_id')}}</a></td>
+              <td>{{ item.get('title')}}</td>
+             {% if item.get('state').get('active') %}
+              <td>Active</td>
+              {% elif item.get('state').get('completed') %}
+              <td>Completed</td>
+              {% elif item.get('state').get('pause') %}
+              <td>Paused</td>
+              {% elif item.get('state').get('terminate') %}
+              <td>Terminated</td>
+              {% else %}
+              <td>Undefined</td>
+
+              {% endif %}
+             
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        
+        
+       
+
+      </div>
+      <div class="flex flex-col w-1/4 mx-5">
+        
+        <p class="flex flex-row bg-gray-400 py-2 px-3">Inventory 
+          <span class="mx-5"> <projectinventory project="{{data}}"></projectinventory></span>
+          <a href="#" class="mx-5 text-xs">get report</a>
+        </p>
+        {% for item in data.get('inventory') %}
+        {{ item['instock'] }} {{ item['unit'] }} {{ item['item'] }} 
+        {% endfor %}
+
+      </div>
+        
+      </div>
+
+      <div>Account</div>
+        <div>Documents</div>
+    
+   
+
+</div>
+
+    
+{% endblock %}
+{% block extra_script %} 
+ <script src="/static/apps/projectApp.js"></script>
+ 
+
+{% endblock %}
+   
